@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muslim Marriage Biodata</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Light Mode (Default) */
+    .light-mode {
+      background-color: #FFFDD0;
+      color: #000000;
+    }
+
+    .light-mode .header {
+      background: linear-gradient(to right, #2E8B57, #D4A017);
+    }
+
+    .light-mode .section {
+      background: #ffffff;
+    }
+
+    .light-mode h2 {
+      color: #2E8B57;
+    }
+
+    .light-mode footer {
+      background: #2E8B57;
+    }
+
+    .light-mode .button {
+      background-color: #2E8B57;
+    }
+
+    .light-mode .button:hover {
+      background-color: #D4A017;
+    }
+
+    .light-mode #language-select {
+      background-color: #2E8B57;
+    }
+
+    /* Dark Mode */
+    .dark-mode {
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    .dark-mode .header {
+      background: linear-gradient(to right, #1B5E20, #B8860B);
+    }
+
+    .dark-mode .section {
+      background: rgba(42, 42, 42, 0.9);
+    }
+
+    .dark-mode h2 {
+      color: #ffffff;
+    }
+
+    .dark-mode footer {
+      background: #1B5E20;
+    }
+
+    .dark-mode .button {
+      background-color: #2E8B57;
+    }
+
+    .dark-mode .button:hover {
+      background-color: #D4A017;
+    }
+
+    .dark-mode #language-select {
+      background-color: #1B5E20;
+    }
+
+    /* Language-Specific Fonts */
+    .english {
+      font-family: 'Merriweather', serif;
+    }
+
+    .hindi {
+      font-family: 'Noto Serif Devanagari', serif;
+    }
+
+    .urdu {
+      font-family: 'Noto Naskh Arabic', sans-serif;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .header {
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #D4A017;
+    }
+
+    .section {
+      margin: 1rem;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, background-color 0.3s ease;
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      border-bottom: 2px solid #D4A017;
+      padding-bottom: 0.5rem;
+    }
+
+    .button {
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    footer {
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    #error-message {
+      display: none;
+      color: red;
+      text-align: center;
+      margin: 1rem;
+    }
+
+    #language-select {
+      color: white;
+      padding: 0.5rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+
+    #theme-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    #logout-button {
+      background-color: #2E8B57;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    #logout-button:hover {
+      background-color: #D4A017;
+    }
+
+    /* Password Form */
+    #password-form-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #password-form {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    #password-form h2 {
+      font-family: 'Noto Naskh Arabic', sans-serif;
+      color: #2E8B57;
+      margin-bottom: 1rem;
+    }
+
+    #username-input,
+    #password-input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #D4A017;
+      border-radius: 5px;
+    }
+
+    #password-error {
+      display: none;
+      color: red;
+      margin-bottom: 1rem;
+    }
+
+    #password-submit {
+      background-color: #2E8B57;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #password-submit:hover {
+      background-color: #D4A017;
+    }
+
+    /* Photo Request Modal */
+    #photo-request-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #photo-request-form {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    #photo-request-form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    #photo-request-form input,
+    #photo-request-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #D4A017;
+      border-radius: 5px;
+    }
+
+    #photo-request-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    #photo-request-message {
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    #photo-request-message.success {
+      color: #2E8B57;
+    }
+
+    #photo-request-message.error {
+      color: red;
+    }
+
+    #photo-request-submit,
+    #photo-request-close {
+      background-color: #2E8B57;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0.5rem;
+    }
+
+    #photo-request-submit:hover,
+    #photo-request-close:hover {
+      background-color: #D4A017;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="light-mode english">
+
+  <div id="password-form-container">
+    <form id="password-form">
+      <h2>Assalamu Alaikum</h2>
+      <p>Please enter your username and password to view the biodata.</p>
+      <input type="text" id="username-input" placeholder="Enter username" required>
+      <input type="password" id="password-input" placeholder="Enter password" required>
+      <div id="password-error">Invalid username or password. Please try again.</div>
+      <button type="submit" id="password-submit">Submit</button>
+    </form>
+  </div>
+
+  <div id="photo-request-modal" class="hidden">
+    <form id="photo-request-form">
+      <h2 id="photo-request-title"></h2>
+      <div id="photo-request-message"></div>
+      <div>
+        <label id="photo-request-name-label"></label>
+        <input type="text" id="photo-request-name" required>
+      </div>
+      <div>
+        <label id="photo-request-email-label"></label>
+        <input type="email" id="photo-request-email" required>
+      </div>
+      <div>
+        <label id="photo-request-phone-label"></label>
+        <input type="text" id="photo-request-phone">
+      </div>
+      <div>
+        <label id="photo-request-message-label"></label>
+        <textarea id="photo-request-message-text"></textarea>
+      </div>
+      <button type="submit" id="photo-request-submit"></button>
+      <button type="button" id="photo-request-close"></button>
+    </form>
+  </div>
+
+  <header class="header hidden">
+    <!-- <h1 class="text-3xl md:text-4xl font-bold">
+      Bismillah-ir-Rahman-ir-Rahim
+    </h1> -->
+
+    <h1 class="text-3xl md:text-4xl font-bold">
+      بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+    </h1>
+    <p class="mt-2 text-lg ">Biodata for Marriage</p>
+    <div class="flex justify-center gap-4 ">
+      <select id="language-select" onchange="changeLanguage()">
+        <option value="english">English</option>
+        <option value="hindi">हिन्दी</option>
+        <option value="urdu">اردو</option>
+      </select>
+      <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+      <button id="logout-button" onclick="logout()"></button>
+    </div>
+  </header>
+
+   <script type="text/javascript">
+    // Disable right-click
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+
+    // Disable common dev tools shortcuts
+    document.addEventListener('keydown', function (e) {
+      // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+S, Ctrl+U
+      if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || // Ctrl+Shift+I/J
+        (e.ctrlKey && (e.key === 'u' || e.key === 's')) // Ctrl+U/S
+      ) {
+        e.preventDefault();
+      }
+    });
+
+    // Disable text selection
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.style.userSelect = 'none';
+      document.body.style.webkitUserSelect = 'none';
+      document.body.style.msUserSelect = 'none';
+    });
+
+  </script>
+  <main class="max-w-4xl mx-auto hidden">
+    <div id="error-message">Failed to load biodata. Please try again later.</div>
+
+    <div class="section">
+      <h2 class="text-2xl">Personal Information</h2>
+      <div id="personal-info" class="mt-2"></div>
+    </div>
+
+    <div class="section">
+      <h2 class="text-2xl">Educational Qualifications</h2>
+      <ul id="education-info" class="list-disc pl-5 mt-2"></ul>
+    </div>
+
+    <div class="section">
+      <h2 class="text-2xl">Professional Details</h2>
+      <ul id="professional-info" class="list-disc pl-5 mt-2"></ul>
+    </div>
+
+    <div class="section">
+      <h2 class="text-2xl">Family Background</h2>
+      <ul id="family-info" class="list-disc pl-5 mt-2"></ul>
+    </div>
+
+    <div class="section">
+      <h2 class="text-2xl">Religious & Lifestyle Details</h2>
+      <ul id="religious-lifestyle-info" class="list-disc pl-5 mt-2"></ul>
+    </div>
+
+    <div class="section">
+      <h2 class="text-2xl">Partner Preferences</h2>
+      <ul id="partner-preferences-info" class="list-disc pl-5 mt-2"></ul>
+    </div>
+
+    <div class="section text-center">
+      <h2 class="text-2xl">Contact Information</h2>
+      <div id="contact-info" class="mt-2"></div>
+      <button onclick="showPhotoRequestForm()" class="button mt-4">Request Photo</button>
+      <a href="javascript:downloadPDF()" class="button mt-4 ml-4 " style="display: none;">Download PDF</a>
+    </div>
+  </main>
+
+  <footer class="hidden">
+    <p id="closing-note"></p>
+  </footer>
+
+ 
+
+  <script type="text/javascript">
+    var gk_isXlsx = false;
+    var gk_xlsxFileLookup = {};
+    var gk_fileData = {};
+    function filledCell(cell) {
+      return cell !== '' && cell != null;
+    }
+    function loadFileData(filename) {
+      if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+        try {
+          var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+          var firstSheetName = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[firstSheetName];
+
+          // Convert sheet to JSON to filter blank rows
+          var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+          // Filter out blank rows (rows where all cells are empty, null, or undefined)
+          var filteredData = jsonData.filter(row => row.some(filledCell));
+
+          // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+          var headerRowIndex = filteredData.findIndex((row, index) =>
+            row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+          );
+          // Fallback
+          if (headerRowIndex === -1 || headerRowIndex > 25) {
+            headerRowIndex = 0;
+          }
+
+          // Convert filtered JSON back to CSV
+          var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+          csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+          return csv;
+        } catch (e) {
+          console.error(e);
+          return "";
+        }
+      }
+      return gk_fileData[filename] || "";
+    }
+  </script>
+
+
+  <!-- Embedded JSON for sam -->
+  <script id="embedded-biodata-sam">
+    const embeddedBiodataSam = {
+      "english": {
+        "personal": {
+          "full_name": "Shahnawaz Alam",
+          "photo_url": "https://res.cloudinary.com/dwqgr4ovb/image/upload/v1749481957/itqfrxuzxjscj5i87x8i.png",
+          "age": "23 Years",
+          "date_of_birth": "6th February 2002",
+          "height": "5'5”",
+          "complexion": "Wheatish",
+          "marital_status": "Single",
+          "address": "Sultanpur Khurd, PO-Sultanpur Kalan, PS- Jamo, Siwan, Bihar - 841434",
+          "nationality": "Indian",
+          "sect": "Sunni"
+        },
+        "education": [
+          "B.Tech in Computer Science, MMDU Mullana, Ambala (2024)",
+          "Intermediate in Science with PCM, BSEB Patna (2019)",
+          "Matriculation in General, BSEB Patna (2017)",
+          "Completed Islamic Studies Course, BSMEB Patna (2013)"
+        ],
+        "professional": {
+          "occupation": "Software Engineer at BluParrot Ventures, Gurugram",
+          "career_goals": "Pursuing Cloud Computing and Prompt Engineering, aiming for a leadership role."
+        },
+        "family": {
+          "father": "Amantullah Ansari, Contracting Business",
+          "mother": "Mrs. Rabeya Khatun, Homemaker",
+          "siblings": "1 elder sister (married), 1 younger brother",
+          "family_type": "Nuclear, religious",
+          "ancestral_background": "Ansari family"
+        },
+        "religious_lifestyle": {
+          "religious_practices": "Performs prayers, observes Ramadan, follows Sunnah",
+          "dress_preferences": "Prefers modest attire (kurta/suit)",
+        },
+        "partner_preferences": {
+          "education": "Graduate or Intermediate, preferably in arts, science, or education",
+          "religious_expectations": "Practicing Muslimah, observes hijab, values family",
+          "other_preferences": "Kind-hearted, from a similar cultural background"
+        },
+        "contact": {
+          "email": "snawaza243@email.com",
+          "phone": "+91-8969813910 (Father)"
+        },
+        "closing_note": "We seek a compatible match who shares our Islamic values and family-oriented outlook. JazakAllah Khair for considering this biodata."
+      },
+      "hindi": {
+        "personal": {
+          "full_name": "शाहनवाज़ आलम",
+          "photo_url": "https://res.cloudinary.com/dwqgr4ovb/image/upload/v1749481957/itqfrxuzxjscj5i87x8i.png",
+          "age": "23 वर्ष",
+          "date_of_birth": "6 फरवरी 2002",
+          "height": "5'5”",
+          "complexion": "गेंहुआ",
+          "marital_status": "कभी विवाहित नहीं",
+          "address": "सुल्तानपुर खुर्द, PO-सुल्तानपुर कला, PS-जामो, सिवान, बिहार - 841434",
+          "nationality": "भारतीय",
+          "sect": "सुन्नी"
+        },
+        "education": [
+          "बी.टेक कंप्यूटर साइंस में, एमएमडीयू मुल्लाना, अंबाला (2024)",
+          "इंटरमीडिएट साइंस में पीसीएम, बीएसईबी पटना (2019)",
+          "मैट्रिक जनरल में, बीएसईबी पटना (2017)",
+          "इस्लामी अध्ययन पाठ्यक्रम पूर्ण, बीएसएमईबी पटना (2013)"
+        ],
+        "professional": {
+          "occupation": "सॉफ्टवेयर इंजीनियर, ब्लूपैरोट वेंचर्स, गुड़गांव",
+          "career_goals": "क्लाउड कंप्यूटिंग और प्रॉम्प्ट इंजीनियरिंग का अध्ययन, नेतृत्व की भूमिका की आकांक्षा"
+        },
+        "family": {
+          "father": "अमनतुल्लाह अंसारी, ठेकेदारी का व्यवसाय",
+          "mother": "श्रीमती राबिया खातून, गृहिणी",
+          "siblings": "1 बड़ी बहन (विवाहित), 1 छोटा भाई",
+          "family_type": "Nuclear परिवार, धार्मिक",
+          "ancestral_background": "अंसारी परिवार"
+        },
+        "religious_lifestyle": {
+          "religious_practices": "नमाज़ रोज़े और, सुन्नत का अनुसरण",
+          "dress_preferences": "सादा परिधान (कुर्ता/सूट) पसंद करता है",
+        },
+        "partner_preferences": {
+          "education": "स्नातक या इंटरमीडिएट, अधिमानतः कला, विज्ञान या शिक्षा में",
+          "religious_expectations": "नियमित मुस्लिम, हिजाब पहनती हो, परिवार को महत्व दे",
+          "other_preferences": "दयालु, समान सांस्कृतिक पृष्ठभूमि"
+        },
+        "contact": {
+          "email": "snawaza243@email.com",
+          "phone": "+91-8969813910 (पिता)"
+        },
+        "closing_note": "हम एक ऐसे जीवनसाथी की तलाश में हैं जो हमारे इस्लामी मूल्यों और पारिवारिक दृष्टिकोण को साझा करे। इस बायोडाटा पर विचार करने के लिए जज़ाकल्लाह खैर।"
+      },
+      "urdu": {
+        "personal": {
+          "full_name": "شاہ نواز عالم",
+          "photo_url": "https://res.cloudinary.com/dwqgr4ovb/image/upload/v1749481957/itqfrxuzxjscj5i87x8i.png",
+          "age": "23 سال",
+          "date_of_birth": "6 فروری 2002",
+          "height": " ”",
+          "complexion": "گندمی",
+          "marital_status": "کبھی شادی نہیں کی",
+          "address": "سلطان پور خرد، سلطان پور كلا، جامو، سیوان، بہار - 841434",
+          "nationality": "ہندوستانی",
+          "sect": "سنی"
+        },
+        "education": [
+          "کمپیوٹر سائنس میں بی ٹیک، ایم ایم ڈی یو ملانا، امبالا (2024)",
+          "انٹرمیڈیٹ سائنس میں پی سی ایم، بی ایس ای بی پٹنہ (2019)",
+          "میٹرک جنرل میں، بی ایس ای بی پٹنہ (2017)",
+          "اسلامی مطالعہ کا کورس مکمل، بی ایس ایم ای بی پٹنہ (2013)"
+        ],
+        "professional": {
+          "occupation": "سافٹ ویئر انجینئر، بلوپیرٹ وینچرز، گڑگاؤں",
+          "career_goals": "کلاؤڈ کمپیوٹنگ اور پرامپٹ انجینئرنگ کا مطالعہ، قیادت کی حیثیت کی خواہش"
+        },
+        "family": {
+          "father": "امانت اللہ انصاری، ٹھیکیداری کا کاروبار",
+          "mother": "محترمہ ربیعہ خاتون، گھریلو خاتون",
+          "siblings": "1 بڑی بہن (شادی شدہ)، 1 چھوٹا بھائی",
+          "family_type": "جوہری، مذہبی",
+          "ancestral_background": "انصاری خاندان"
+        },
+        "religious_lifestyle": {
+          "religious_practices": "نماز ، رمضان، سنت کی پیروی ",
+          "dress_preferences": "سادہ لباس (کرتا/سوٹ) پسند کرتا ہے",
+        },
+        "partner_preferences": {
+          "education": "گریجویٹ یا انٹرمیڈیٹ، ترجیحاً آرٹس، سائنس یا ایجوکیشن میں",
+          "religious_expectations": "پابند مسلمہ، حجاب کرتی ہو، خاندان کو اہمیت دے",
+          "other_preferences": "مہربان، یکساں ثقافتی پس منظر"
+        },
+        "contact": {
+          "email": "snawaza243@email.com",
+          "phone": "+91-8969813910 (والد)"
+        },
+        "closing_note": "ہم ایک ایسے شریک حیات کی تلاش میں ہیں جو ہمارے اسلامی اقدار اور خاندانی نقطہ نظر کو شریک کرے۔ اس بائیو ڈیٹا پر غور کرنے کے لیے جزاک اللہ خیر۔"
+      }
+    };
+  </script>
+
+
+
+  <script>
+    let biodata = null;
+    let currentLanguage = 'english';
+    let currentEmail = ''; // Store user-specific email for photo requests
+    const { jsPDF } = window.jspdf;
+    const SESSION_TIMEOUT = 20 * 60 * 1000; // 20 minutes in milliseconds
+
+    // Client-side user credentials mapping (move to backend in production)
+    const userCredentials = {
+      'snawaza243': {
+        password: 'snawaza243',
+        email: 'snawaza243@email.com',
+        jsonData: embeddedBiodataSam,
+        jsonUrl: 'https://gist.githubusercontent.com/snawaza243/833310e9123038a05bad3d68991269c0/raw/eb175bf1b6b711a1704f22a22447229088c36c3f/data1.json'
+      }
+    };
+
+    // Initialize EmailJS
+    (function () {
+      emailjs.init('ozGICExR3o9WZs7vJ'); // Replace with your EmailJS Public Key
+    })();
+
+    // Password protection with session timeout
+    function checkAuthentication() {
+      const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+      const authTimestamp = parseInt(sessionStorage.getItem('authTimestamp') || '0', 10);
+      const username = sessionStorage.getItem('username');
+      const currentTime = Date.now();
+      const passwordFormContainer = document.getElementById('password-form-container');
+      const contentElements = document.querySelectorAll('header, main, footer');
+
+      // Check if session is valid (authenticated, not expired, valid username)
+      if (isAuthenticated && (currentTime - authTimestamp) < SESSION_TIMEOUT && username && userCredentials[username]) {
+        currentEmail = userCredentials[username].email; // Set user-specific email
+        passwordFormContainer.style.display = 'none';
+        contentElements.forEach(el => el.classList.remove('hidden'));
+        loadBiodata(username); // Load user-specific biodata
+      } else {
+        sessionStorage.removeItem('authenticated');
+        sessionStorage.removeItem('authTimestamp');
+        sessionStorage.removeItem('username');
+        passwordFormContainer.style.display = 'flex';
+        contentElements.forEach(el => el.classList.add('hidden'));
+      }
+    }
+
+    document.getElementById('password-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username-input').value.trim().toLowerCase();
+      const password = document.getElementById('password-input').value;
+      const passwordError = document.getElementById('password-error');
+      const passwordFormContainer = document.getElementById('password-form-container');
+      const contentElements = document.querySelectorAll('header, main, footer');
+
+      // Validate username and password
+      if (userCredentials[username] && userCredentials[username].password === password) {
+        sessionStorage.setItem('authenticated', 'true');
+        sessionStorage.setItem('authTimestamp', Date.now().toString());
+        sessionStorage.setItem('username', username);
+        currentEmail = userCredentials[username].email; // Set user-specific email
+        passwordFormContainer.style.display = 'none';
+        contentElements.forEach(el => el.classList.remove('hidden'));
+        loadBiodata(username);
+      } else {
+        passwordError.style.display = 'block';
+        document.getElementById('username-input').value = '';
+        document.getElementById('password-input').value = '';
+      }
+    });
+
+    // Logout function
+    function logout() {
+      sessionStorage.removeItem('authenticated');
+      sessionStorage.removeItem('authTimestamp');
+      sessionStorage.removeItem('username');
+      currentEmail = '';
+      const passwordFormContainer = document.getElementById('password-form-container');
+      const contentElements = document.querySelectorAll('header, main, footer');
+      passwordFormContainer.style.display = 'flex';
+      contentElements.forEach(el => el.classList.add('hidden'));
+      document.getElementById('username-input').value = '';
+      document.getElementById('password-input').value = '';
+      document.getElementById('password-error').style.display = 'none';
+    }
+
+    // Update logout button text based on language
+    function updateLogoutButtonText() {
+      const logoutButton = document.getElementById('logout-button');
+      logoutButton.textContent = currentLanguage === 'english' ? 'Logout' :
+        currentLanguage === 'hindi' ? 'लॉगआउट' :
+          'لاگ آؤٹ';
+    }
+
+    // Photo request form
+    function showPhotoRequestForm() {
+      const modal = document.getElementById('photo-request-modal');
+      const form = document.getElementById('photo-request-form');
+      const messageDiv = document.getElementById('photo-request-message');
+
+      // Set translated labels
+      const translations = {
+        english: {
+          title: 'Request Photo',
+          name: 'Name',
+          email: 'Email',
+          phone: 'Phone (Optional)',
+          message: 'Message (Optional)',
+          submit: 'Submit Request',
+          close: 'Close',
+          success: 'Request sent successfully. We will contact you soon.',
+          error: 'Failed to send request. Please try again.'
+        },
+        hindi: {
+          title: 'फोटो अनुरोध',
+          name: 'नाम',
+          email: 'ईमेल',
+          phone: 'फोन (वैकल्पिक)',
+          message: 'संदेश (वैकल्पिक)',
+          submit: 'अनुरोध सबमिट करें',
+          close: 'बंद करें',
+          success: 'अनुरोध सफलतापूर्वक भेजा गया। हम आपसे जल्द संपर्क करेंगे।',
+          error: 'अनुरोध भेजने में विफल। कृपया पुनः प्रयास करें।'
+        },
+        urdu: {
+          title: 'تصویر کا درخواست',
+          name: 'نام',
+          email: 'ای میل',
+          phone: 'فون (اختیاری)',
+          message: 'پیغام (اختیاری)',
+          submit: 'درخواست جمع کریں',
+          close: 'بند کریں',
+          success: 'درخواست کامیابی سے بھیج دی گئی۔ ہم جلد آپ سے رابطہ کریں گے۔',
+          error: 'درخواست بھیجنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔'
+        }
+      };
+
+      document.getElementById('photo-request-title').textContent = translations[currentLanguage].title;
+      document.getElementById('photo-request-name-label').textContent = translations[currentLanguage].name;
+      document.getElementById('photo-request-email-label').textContent = translations[currentLanguage].email;
+      document.getElementById('photo-request-phone-label').textContent = translations[currentLanguage].phone;
+      document.getElementById('photo-request-message-label').textContent = translations[currentLanguage].message;
+      document.getElementById('photo-request-submit').textContent = translations[currentLanguage].submit;
+      document.getElementById('photo-request-close').textContent = translations[currentLanguage].close;
+
+      // Reset form
+      form.reset();
+      messageDiv.style.display = 'none';
+      messageDiv.classList.remove('success', 'error');
+
+      modal.style.display = 'flex';
+    }
+
+    document.getElementById('photo-request-close').addEventListener('click', () => {
+      document.getElementById('photo-request-modal').style.display = 'none';
+    });
+
+    document.getElementById('photo-request-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('photo-request-name').value.trim();
+      const email = document.getElementById('photo-request-email').value.trim();
+      const phone = document.getElementById('photo-request-phone').value.trim();
+      const message = document.getElementById('photo-request-message-text').value.trim();
+      const messageDiv = document.getElementById('photo-request-message');
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!name || !email || !emailRegex.test(email)) {
+        messageDiv.textContent = currentLanguage === 'english' ? 'Please provide a valid name and email.' :
+          currentLanguage === 'hindi' ? 'कृपया एक मान्य नाम और ईमेल प्रदान करें।' :
+            'براہ کرم ایک درست نام اور ای میل فراہم کریں۔';
+        messageDiv.classList.add('error');
+        messageDiv.style.display = 'block';
+        return;
+      }
+
+      // Send email via EmailJS
+      const templateParams = {
+        name: name,
+        email: email,
+        phone: phone || 'Not provided',
+        message: message || 'No message provided',
+        title: "For Photo Request"
+      };
+
+      emailjs.send('service_cpbg9r8', 'template_ezyjxod', templateParams)
+        .then(() => {
+          messageDiv.textContent = currentLanguage === 'english' ? 'Request sent successfully. We will contact you soon.' :
+            currentLanguage === 'hindi' ? 'अनुरोध सफलतापूर्वक भेजा गया। हम आपसे जल्द संपर्क करेंगे।' :
+              'درخواست کامیابی سے بھیج دی گئی۔ ہم جلد آپ سے رابطہ کریں گے۔';
+          messageDiv.classList.add('success');
+          messageDiv.style.display = 'block';
+          document.getElementById('photo-request-form').reset();
+          setTimeout(() => {
+            document.getElementById('photo-request-modal').style.display = 'none';
+          }, 2000);
+        }, (error) => {
+          messageDiv.textContent = currentLanguage === 'english' ? 'Failed to send request. Please try again.' :
+            currentLanguage === 'hindi' ? 'अनुरोध भेजने में विफल। कृपया पुनः प्रयास करें।' :
+              'درخواست بھیجنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔';
+          messageDiv.classList.add('error');
+          messageDiv.style.display = 'block';
+          console.error('EmailJS error:', error);
+        });
+    });
+
+    // Theme toggle function
+    function toggleTheme() {
+      const body = document.body;
+      const isDarkMode = body.classList.contains('dark-mode');
+      body.classList.toggle('light-mode', isDarkMode);
+      body.classList.toggle('dark-mode', !isDarkMode);
+      const themeToggle = document.getElementById('theme-toggle');
+      themeToggle.textContent = isDarkMode ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDarkMode ? 'light' : 'dark');
+    }
+
+    // Apply saved theme on load
+    function applySavedTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      const body = document.body;
+      body.classList.add(`${savedTheme}-mode`);
+      document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Function to update page font
+    function updatePageFont(language) {
+      document.body.classList.remove('english', 'hindi', 'urdu');
+      document.body.classList.add(language);
+      document.querySelectorAll('.section, .header, footer, h2, ul, p').forEach(el => {
+        el.classList.remove('english', 'hindi', 'urdu');
+        el.classList.add(language);
+        el.style.direction = language === 'urdu' ? 'rtl' : 'ltr';
+      });
+    }
+
+    // Function to render biodata
+    function renderBiodata(data, language) {
+      updatePageFont(language);
+      updateLogoutButtonText();
+      const isRtl = language === 'urdu';
+
+      // Clear existing content
+      ['personal-info', 'education-info', 'professional-info', 'family-info', 'religious-lifestyle-info', 'partner-preferences-info', 'contact-info', 'closing-note'].forEach(id => {
+        document.getElementById(id).innerHTML = '';
+      });
+
+      // Update section titles based on language
+      const sectionTitles = {
+        english: {
+          personal: 'Personal Information',
+          education: 'Educational Qualifications',
+          professional: 'Professional Details',
+          family: 'Family Background',
+          religious: 'Religious & Lifestyle Details',
+          partner: 'Partner Preferences',
+          contact: 'Contact Information'
+        },
+        hindi: {
+          personal: 'व्यक्तिगत जानकारी',
+          education: 'शैक्षिक योग्यताएँ',
+          professional: 'पेशेवर विवरण',
+          family: 'पारिवारिक पृष्ठभूमि',
+          religious: 'धार्मिक और जीवनशैली विवरण',
+          partner: 'जीवनसाथी प्राथमिकताएँ',
+          contact: 'संपर्क जानकारी'
+        },
+        urdu: {
+          personal: 'ذاتی معلومات',
+          education: 'تعلیمی قابلیت',
+          professional: 'پیشہ ورانہ تفصیلات',
+          family: 'خاندانی پس منظر',
+          religious: 'مذہبی اور طرز زندگی کی تفصیلات',
+          partner: 'شریک حیات کی ترجیحات',
+          contact: 'رابطہ کی معلومات'
+        }
+      };
+      document.querySelectorAll('.section h2').forEach((h2, index) => {
+        const keys = ['personal', 'education', 'professional', 'family', 'religious', 'partner', 'contact'];
+        h2.textContent = sectionTitles[language][keys[index]];
+      });
+
+      // Personal Information
+      const personalDiv = document.getElementById('personal-info');
+      const personalList = document.createElement('ul');
+      personalList.className = 'list-disc pl-5';
+      // Add profile photo if available
+      if (data[language].personal.photo_url) {
+        const img = document.createElement('img');
+        img.src = data[language].personal.photo_url;
+        img.alt = `${data[language].personal.full_name} Profile Photo`;
+        img.className = 'w-32 h-32 rounded-full mx-auto mb-4 d-flex';
+        img.onerror = () => {
+          img.style.display = 'none'; // Hide if image fails to load
+        };
+        personalDiv.appendChild(img);
+      }
+      Object.entries(data[language].personal).forEach(([key, value]) => {
+        if (key === 'photo_url') return; // Skip photo_url in list
+        const li = document.createElement('li');
+        const formattedKey = language === 'english'
+          ? key.replace('_', ' ').replace(/^\w/, c => c.toUpperCase())
+          : key === 'full_name' ? (language === 'hindi' ? 'पूरा नाम' : 'مکمل نام') :
+            key === 'age' ? (language === 'hindi' ? 'आयु' : 'عمر') :
+              key === 'date_of_birth' ? (language === 'hindi' ? 'जन्म तिथि' : 'تاریخ پیدائش') :
+                key === 'height' ? (language === 'hindi' ? 'लंबाई' : 'قد') :
+                  key === 'weight' ? (language === 'hindi' ? 'वजन' : 'وزن') :
+                    key === 'complexion' ? (language === 'hindi' ? 'रंग' : 'رنگت') :
+                      key === 'marital_status' ? (language === 'hindi' ? 'वैवाहिक स्थिति' : 'ازدواجی حیثیت') :
+                        key === 'nationality' ? (language === 'hindi' ? 'राष्ट्रीयता' : 'قومیت') :
+                          key === 'address' ? (language === 'hindi' ? 'पता' : 'پتہ') :
+                            key === 'sect' ? (language === 'hindi' ? 'संप्रदाय' : 'فرقہ') : key;
+        li.innerHTML = `<strong>${formattedKey}</strong>: ${value}`;
+        personalList.appendChild(li);
+      });
+      personalDiv.appendChild(personalList);
+
+      // Education
+      const educationList = document.getElementById('education-info');
+      data[language].education.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        educationList.appendChild(li);
+      });
+
+      // Professional
+      const professionalList = document.getElementById('professional-info');
+      Object.entries(data[language].professional).forEach(([key, value]) => {
+        const li = document.createElement('li');
+        const formattedKey = language === 'english'
+          ? key.replace('_', ' ').replace(/^\w/, c => c.toUpperCase())
+          : key === 'occupation' ? (language === 'hindi' ? 'पेशा' : 'پیشہ') :
+            key === 'annual_income' ? (language === 'hindi' ? 'वार्षिक आय' : 'سالانہ آمدنی') :
+              key === 'career_goals' ? (language === 'hindi' ? 'कैरियर लक्ष्य' : 'کیریئر کے اہداف') : key;
+        li.innerHTML = `<strong>${formattedKey}</strong>: ${value}`;
+        professionalList.appendChild(li);
+      });
+
+      // Family
+      const familyList = document.getElementById('family-info');
+      Object.entries(data[language].family).forEach(([key, value]) => {
+        const li = document.createElement('li');
+        const formattedKey = language === 'english'
+          ? key.replace('_', ' ').replace(/^\w/, c => c.toUpperCase())
+          : key === 'father' ? (language === 'hindi' ? 'पिता' : 'والد') :
+            key === 'mother' ? (language === 'hindi' ? 'माता' : 'والدہ') :
+              key === 'siblings' ? (language === 'hindi' ? 'भाई-बहन' : 'بہن بھائی') :
+                key === 'family_type' ? (language === 'hindi' ? 'परिवार का प्रकार' : 'خاندان کی قسم') :
+                  key === 'ancestral_background' ? (language === 'hindi' ? 'पैतृक पृष्ठभूमि' : 'خاندانی پس منظر') : key;
+        li.innerHTML = `<strong>${formattedKey}</strong>: ${value}`;
+        familyList.appendChild(li);
+      });
+
+      // Religious & Lifestyle
+      const religiousList = document.getElementById('religious-lifestyle-info');
+      Object.entries(data[language].religious_lifestyle).forEach(([key, value]) => {
+        const li = document.createElement('li');
+        const formattedKey = language === 'english'
+          ? key.replace('_', ' ').replace(/^\w/, c => c.toUpperCase())
+          : key === 'religious_practices' ? (language === 'hindi' ? 'धार्मिक प्रथाएँ' : 'مذہبی عمل') :
+            key === 'dress_preferences' ? (language === 'hindi' ? 'पहनावे की प्राथमिकता' : 'لباس کی ترجیحات') :
+              key === 'dietary_habits' ? (language === 'hindi' ? 'आहारीय आदतें' : 'غذائی عادات') :
+                key === 'hobbies_interests' ? (language === 'hindi' ? 'शौक और रुचियाँ' : 'شوق اور دلچسپیاں') : key;
+        li.innerHTML = `<strong>${formattedKey}</strong>: ${value}`;
+        religiousList.appendChild(li);
+      });
+
+      // Partner Preferences
+      const partnerList = document.getElementById('partner-preferences-info');
+      Object.entries(data[language].partner_preferences).forEach(([key, value]) => {
+        const li = document.createElement('li');
+        const formattedKey = language === 'english'
+          ? key.replace('_', ' ').replace(/^\w/, c => c.toUpperCase())
+          : key === 'age_range' ? (language === 'hindi' ? 'आयु सीमा' : 'عمر کی حد') :
+            key === 'education' ? (language === 'hindi' ? 'शिक्षा' : 'تعلیم') :
+              key === 'religious_expectations' ? (language === 'hindi' ? 'धार्मिक अपेक्षाएँ' : 'مذہبی توقعات') :
+                key === 'other_preferences' ? (language === 'hindi' ? 'अन्य प्राथमिकताएँ' : 'دیگر ترجیحات') : key;
+        li.innerHTML = `<strong>${formattedKey}</strong>: ${value}`;
+        partnerList.appendChild(li);
+      });
+
+      // Contact
+      const contactDiv = document.getElementById('contact-info');
+      contactDiv.innerHTML = `
+        <p><strong>${language === 'english' ? 'Email' : language === 'hindi' ? 'ईमेल' : 'ای میل'}</strong>: ${data[language].contact.email}</p>
+        <p><strong>${language === 'english' ? 'Phone' : language === 'hindi' ? 'फोन' : 'فون'}</strong>: ${data[language].contact.phone}</p>
+      `;
+
+      // Closing Note
+      document.getElementById('closing-note').textContent = data[language].closing_note;
+    }
+
+    // Function to change language
+    function changeLanguage() {
+      currentLanguage = document.getElementById('language-select').value;
+      if (biodata) {
+        renderBiodata(biodata, currentLanguage);
+      }
+    }
+
+    // Function to download PDF
+    function downloadPDF() {
+      const doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      // Set font and styling
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(16);
+      doc.setTextColor(0, 100, 0); // Green color
+
+      // Header
+      const headerText = currentLanguage === 'english' ? 'Bismillah-ir-Rahman-ir-Rahim\nBiodata for Marriage' :
+        currentLanguage === 'hindi' ? 'बिस्मिल्लाह-इर-रहमान-इर-रहीम\nविवाह के लिए बायोडाटा' :
+          'بسم اللہ الرحمن الرحیم\nشادی کے لیے بائیو ڈیٹا';
+      doc.text(headerText, currentLanguage === 'urdu' ? 190 : 20, 20, { align: currentLanguage === 'urdu' ? 'right' : 'left' });
+
+      // Sections
+      let y = 40;
+      const sections = [
+        { id: 'personal-info', title: document.querySelector('.section:nth-child(2) h2').textContent },
+        { id: 'education-info', title: document.querySelector('.section:nth-child(3) h2').textContent },
+        { id: 'professional-info', title: document.querySelector('.section:nth-child(4) h2').textContent },
+        { id: 'family-info', title: document.querySelector('.section:nth-child(5) h2').textContent },
+        { id: 'religious-lifestyle-info', title: document.querySelector('.section:nth-child(6) h2').textContent },
+        { id: 'partner-preferences-info', title: document.querySelector('.section:nth-child(7) h2').textContent },
+        { id: 'contact-info', title: document.querySelector('.section:nth-child(8) h2').textContent }
+      ];
+
+
+      sections.forEach(section => {
+        if (y > 260) {
+          doc.addPage();
+          y = 20;
+        }
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text(section.title, currentLanguage === 'urdu' ? 190 : 20, y, { align: currentLanguage === 'urdu' ? 'right' : 'left' });
+        y += 10;
+
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'normal');
+        const items = document.getElementById(section.id).querySelector('ul')?.childNodes || document.getElementById(section.id).childNodes;
+        items.forEach(item => {
+          if (item.textContent && item.tagName !== 'IMG') {
+            const text = item.textContent;
+            const lines = doc.splitTextToSize(text, 170);
+            lines.forEach(line => {
+              if (y > 260) {
+                doc.addPage();
+                y = 20;
+              }
+              doc.text(line, currentLanguage === 'urdu' ? 190 : 20, y, { align: currentLanguage === 'urdu' ? 'right' : 'left' });
+              y += 7;
+            });
+          }
+        });
+        y += 5;
+      });
+
+      // Closing Note
+      if (y > 260) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'italic');
+      const closingNote = document.getElementById('closing-note').textContent;
+      const closingLines = doc.splitTextToSize(closingNote, 170);
+      closingLines.forEach(line => {
+        if (y > 260) {
+          doc.addPage();
+          y = 20;
+        }
+        doc.text(line, currentLanguage === 'urdu' ? 190 : 20, y, { align: currentLanguage === 'urdu' ? 'right' : 'left' });
+        y += 7;
+      });
+
+      // Save PDF
+      doc.save('biodata.pdf');
+    }
+
+    // Function to fetch and render JSON for a specific user
+    function loadBiodata(username) {
+      const user = userCredentials[username];
+      const errorMessage = document.getElementById('error-message');
+
+      if (!user) {
+        errorMessage.style.display = 'block';
+        return;
+      }
+
+      // Try fetching hosted JSON
+      fetch(user.jsonUrl)
+        .then(response => {
+          if (!response.ok) throw new Error('Hosted JSON not found');
+          return response.json();
+        })
+        .then(data => {
+          biodata = data;
+          renderBiodata(biodata, currentLanguage);
+        })
+        .catch(error => {
+          console.warn('Failed to fetch hosted JSON:', error);
+          // Fallback to embedded JSON
+          if (user.jsonData) {
+            biodata = user.jsonData;
+            renderBiodata(biodata, currentLanguage);
+          } else {
+            errorMessage.style.display = 'block';
+          }
+        });
+    }
+
+    // Load page
+    window.onload = () => {
+      applySavedTheme();
+      checkAuthentication();
+      updateLogoutButtonText();
+    };
+  </script>
+</body>
+
+</html>
